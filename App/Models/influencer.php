@@ -8,5 +8,5 @@ class Influencer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'platform', 'kategori'];
+    protected $fillable = ['nama_alternatif', 'platform_alternatif', 'kategori_alternatif', 'engagement_alternatif', 'biaya_alternatif', 'relevansi_alternatif'];
 }

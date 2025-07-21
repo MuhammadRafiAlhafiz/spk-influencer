@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('influencers', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('platform'); // contoh: Instagram, TikTok
-            $table->string('kategori'); // contoh: Fashion, Beauty
+            $table->string('nama_alternatif');
+            $table->string('platform_alternatif'); // Instagram, TikTok, dll
+            $table->string('kategori_alternatif'); // Fashion, Beauty, dll
+            $table->decimal('engagement_alternatif', 5, 2)->nullable(); // Contoh: 3.15 (%)
+            $table->bigInteger('biaya_alternatif')->nullable(); // Contoh: 500000
+            $table->string('relevansi_alternatif')->nullable(); // Contoh: Sangat Baik, Baik, Cukup
             $table->timestamps();
         });
     }

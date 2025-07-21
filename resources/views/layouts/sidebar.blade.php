@@ -9,19 +9,34 @@
     <div class="flex min-h-screen">
 
         <!-- Sidebar -->
-<aside class="w-64 bg-white shadow-md flex flex-col h-screen">
+<aside class="fixed top-0 left-0 w-64 h-screen bg-white shadow-md flex flex-col z-20">
     <!-- Bagian Atas (Judul + Menu) -->
     <div>
+        <p class="text-gray-700 text-center mt-5">You're logged in as {{ Auth::user()->role }}!</p>
         <div class="p-6 font-bold text-xl border-b">
             Pemilihan Influencer
         </div>
         <nav class="p-5 space-y-2">
         <div class="justify-between">
             <a href="{{ route('dashboard') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Dashboard</a>
-            <a href="{{ route('alternatif.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Data Alternatif</a>
-            <a href="{{ route('kriteria.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Data Kriteria</a>
-            <a href="{{ route('perhitungan.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Perhitungan Hasil</a>
-            <a href="{{ route('penilaian.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Nilai Alternatif</a>
+
+<details class="group">
+    <summary class="cursor-pointer px-3 py-2 rounded hover:bg-gray-100 flex justify-between items-center">
+        <span>Input Data</span>
+        <svg class="w-4 h-4 ml-2 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </summary>
+    <div class="pl-4 mt-2 space-y-1">
+        <a href="{{ route('alternatif.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Data Alternatif</a>
+        <a href="{{ route('kriteria.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Data Kriteria</a>
+        <a href="{{ route('normalisasi.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Data Normalisasi</a>
+    </div>
+</details>
+
+<a href="{{ route('perhitungan.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Perhitungan Hasil</a>
+<a href="{{ route('penilaian.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Nilai Alternatif</a>
+
         </div>
         </nav>
     </div>
@@ -41,7 +56,7 @@
 </aside>
 
         <!-- Content -->
-        <main class="flex-1 p-6">
+        <main class="flex-1 p-6 ml-64">
             <h2 class="text-2xl font-bold text-gray-800">@yield('title')</h2>
             <div class="mt-4">
                 @yield('content')

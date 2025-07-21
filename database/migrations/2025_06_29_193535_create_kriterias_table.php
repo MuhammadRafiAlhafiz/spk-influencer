@@ -12,12 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('kriterias', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');              // Contoh: Engagement Rate
-            $table->enum('jenis', ['benefit', 'cost']);
-            $table->float('bobot_l');            // lower
-            $table->float('bobot_m');            // middle
-            $table->float('bobot_u');            // upper
+            $table->id(); // primary key auto increment
+            $table->string('kode_kriteria')->unique(); // satu kali saja, dibuat unique
+            $table->string('nama_kriteria');  // Contoh: Engagement Rate
+            $table->decimal('bobot_kriteria', 8, 2); // tipe numeric agar mudah hitung fuzzy
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('krtiterias');
+        Schema::dropIfExists('kriterias');
     }
 };
