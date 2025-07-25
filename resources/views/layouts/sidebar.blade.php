@@ -20,23 +20,42 @@
         <div class="justify-between">
             <a href="{{ route('dashboard') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Dashboard</a>
 
-<details class="group">
-    <summary class="cursor-pointer px-3 py-2 rounded hover:bg-gray-100 flex justify-between items-center">
+@php
+    $isDropdownActive = request()->routeIs('responden.*') ||
+                        request()->routeIs('alternatif.*') ||
+                        request()->routeIs('kriteria.*') ||
+                        request()->routeIs('normalisasi.*');
+@endphp
+
+<div x-data="{ open: {{ $isDropdownActive ? 'true' : 'false' }} }" class="group">
+    <div @click="open = !open" class="cursor-pointer px-3 py-2 rounded hover:bg-gray-100 flex justify-between items-center">
         <span>Input Data</span>
-        <svg class="w-4 h-4 ml-2 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg :class="{'rotate-180': open}" class="w-4 h-4 ml-2 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
         </svg>
-    </summary>
-    <div class="pl-4 mt-2 space-y-1">
-        <a href="{{ route('alternatif.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Data Alternatif</a>
-        <a href="{{ route('kriteria.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Data Kriteria</a>
-        <a href="{{ route('normalisasi.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Data Normalisasi</a>
     </div>
-</details>
+    <div x-show="open" x-transition class="pl-4 mt-2 space-y-1">
+        <a href="{{ route('responden.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100 {{ request()->routeIs('responden.*') ? 'bg-gray-200' : '' }}">Data Responden</a>
+        <a href="{{ route('kriteria.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100 {{ request()->routeIs('kriteria.*') ? 'bg-gray-200' : '' }}">Data Kriteria</a>
+        <a href="{{ route('alternatif.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100 {{ request()->routeIs('alternatif.*') ? 'bg-gray-200' : '' }}">Data Alternatif</a>
+    </div>
+<div x-data="{ openNormalisasi: {{ request()->routeIs('normalisasi.*') || request()->routeIs('terbobot.*') ? 'true' : 'false' }} }" class="group">
+    <div @click="openNormalisasi = !openNormalisasi" class="cursor-pointer px-3 py-2 rounded hover:bg-gray-100 flex justify-between items-center">
+        <span>Normalisasi dan Bobot</span>
+        <svg :class="{'rotate-180': openNormalisasi}" class="w-4 h-4 ml-2 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </div>
+    <div x-show="openNormalisasi" x-transition class="pl-4 mt-2 space-y-1">
+        <a href="{{ route('normalisasi.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100 {{ request()->routeIs('normalisasi.*') ? 'bg-gray-200' : '' }}">Data Normalisasi</a>
+        <a href="{{ route('terbobot.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100 {{ request()->routeIs('terbobot.*') ? 'bg-gray-200' : '' }}">Data Terbobot</a>
+    </div>
+</div>
+
+
+</div>
 
 <a href="{{ route('perhitungan.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Perhitungan Hasil</a>
-<a href="{{ route('penilaian.index') }}" class="block px-3 py-2 rounded hover:bg-gray-100">Nilai Alternatif</a>
-
         </div>
         </nav>
     </div>

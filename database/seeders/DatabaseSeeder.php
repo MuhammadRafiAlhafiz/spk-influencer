@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
                 'email' => $user['email'],
                 'role' => $user['role'],
                 'password' => Hash::make('password'),
+                'role' => 'user', // set manual saat seeding
             ]);
         }
     }
